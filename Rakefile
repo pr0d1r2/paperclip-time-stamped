@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/Pr0d1r2/paperclip-time-stamped"
     gem.authors = ["Marcin Nowicki"]
     gem.add_development_dependency "rspec"
-    gem.add_development_dependency "active_record_connectionless"
+    gem.add_development_dependency "Pr0d1r2-active_record_connectionless"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
