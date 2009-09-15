@@ -47,10 +47,10 @@ describe "PaperclipTimeStamped" do
     end
   end
 
-  it 'timestaped_name_url should return name url with timestamp' do
+  it 'timestamped_name_url should return name url with timestamp' do
     @paperclip_time_stamped.should_receive(:name_url).with(:small).and_return('name_url')
     @paperclip_time_stamped.should_receive(:name_timestamp).with(:small).and_return('1000000000')
-    @paperclip_time_stamped.timestaped_name_url(:small).should == 'name_url?1000000000'
+    @paperclip_time_stamped.timestamped_name_url(:small).should == 'name_url?1000000000'
   end
 
 end

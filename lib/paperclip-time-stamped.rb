@@ -17,7 +17,7 @@ ActiveRecord::Base.class_eval do
       send("#{name}?") ? File.mtime(send("#{name}_path", style)).to_i.to_s : '1000000000'
     end
 
-    define_method("timestaped_#{name}_url") do |style|
+    define_method("timestamped_#{name}_url") do |style|
       [send("#{name}_url", style), '?', send("#{name}_timestamp", style)].join
     end
 
