@@ -1,6 +1,8 @@
 = paperclip-time-stamped
 
-Description goes here.
+Allow to use time-stamped urls from paperclip attachments.
+
+Distributed on MIT license.
 
 == Note on Patches/Pull Requests
  
@@ -15,4 +17,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2009 Marcin Nowicki. See LICENSE for details.
+Copyright (c) 2009 Marcin Nowicki <pr0d1r2@gmail.com>. See LICENSE for details.

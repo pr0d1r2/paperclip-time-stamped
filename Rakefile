@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "paperclip-time-stamped"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{Allow to use time-stamped urls from paperclip attachments}
     gem.description = %Q{Allow to use time-stamped urls from paperclip attachments}
-    gem.email = "pr0d1r2@ragnarson.com"
+    gem.email = "pr0d1r2@gmail.com"
     gem.homepage = "http://github.com/Pr0d1r2/paperclip-time-stamped"
     gem.authors = ["Marcin Nowicki"]
     gem.add_development_dependency "rspec"
+    gem.add_development_dependency "active_record_connectionless"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
