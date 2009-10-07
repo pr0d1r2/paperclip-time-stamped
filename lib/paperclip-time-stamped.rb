@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'active_record'
+require 'paperclip'
 
 ActiveRecord::Base.class_eval do
 
@@ -22,7 +23,7 @@ ActiveRecord::Base.class_eval do
     end
 
     define_method("#{name}?") do |*style|
-      style.empty? ? send(name).exists? : File.file?(send("#{name}_path", style.first))
+      send(name).exists? && (style.empty? || File.file?(send("#{name}_path", style.first)))
     end
 
   end
