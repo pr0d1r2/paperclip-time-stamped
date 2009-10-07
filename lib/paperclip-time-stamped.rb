@@ -14,15 +14,15 @@ ActiveRecord::Base.class_eval do
     end
 
     define_method("#{name}_timestamp") do |style|
-      send("#{name}?") ? File.mtime(send("#{name}_path", style)).to_i.to_s : '1000000000'
+      send("#{name}?", style) ? File.mtime(send("#{name}_path", style)).to_i.to_s : '1000000000'
     end
 
     define_method("timestamped_#{name}_url") do |style|
       [send("#{name}_url", style), '?', send("#{name}_timestamp", style)].join
     end
 
-    define_method("#{name}?") do
-      send(name).exists?
+    define_method("#{name}?") do |style|
+      style ? File.file?(send("#{name}_path", style)) : send(name).exists?
     end
 
   end

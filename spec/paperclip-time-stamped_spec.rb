@@ -27,10 +27,18 @@ describe "PaperclipTimeStamped" do
     @paperclip_time_stamped.name_path(:small).should == 'path'
   end
 
-  it 'name? should be delegated to name.exists?' do
-    @name.should_receive(:exists?).and_return(true)
-    @paperclip_time_stamped.should_receive(:name).and_return(@name)
-    @paperclip_time_stamped.name?.should be_true
+  describe 'name?' do
+    it 'should be delegated to name.exists? when there is no style given' do
+      @name.should_receive(:exists?).and_return(true)
+      @paperclip_time_stamped.should_receive(:name).and_return(@name)
+      @paperclip_time_stamped.name?.should be_true
+    end
+
+    it 'should return File.file? on given file with style when style given' do
+      File.should_receive(:file?).with('path').and_return(true)
+      @paperclip_time_stamped.should_receive(:name_path).with(:small).and_return('path')
+      @paperclip_time_stamped.name?(:small).should be_true
+    end
   end
 
   describe 'name_timestamp' do
