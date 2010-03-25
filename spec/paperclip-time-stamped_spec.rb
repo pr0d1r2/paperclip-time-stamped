@@ -8,6 +8,10 @@ class PaperclipTimeStamped < ActiveRecord::Base
   has_attached_file :name, :styles => {:thumbnail=> "80x80>", :small => "180x180>"}, :path => '/'
   has_timestamped_paperclip_attachment :name
 
+  def name_file_name
+    'name.png'
+  end
+
 end
 
 
@@ -31,31 +35,36 @@ describe "PaperclipTimeStamped" do
   end
 
   describe 'name?' do
-    it 'should be true when name.exists? is true and no style given' do
+    it 'should be true when name_file_name is present and name.exists? is true and no style given' do
+      @paperclip_time_stamped.should_receive(:name_file_name).and_return('name.png')
       @paperclip_time_stamped.should_receive(:name).and_return(@name)
       @name.should_receive(:exists?).and_return(true)
       @paperclip_time_stamped.name?.should be_true
     end
 
     it 'should be true when name.exists? is true and File.file? on given file with style is true' do
-      @paperclip_time_stamped.should_receive(:name).and_return(@name)
-      @name.should_receive(:exists?).and_return(true)
-      File.should_receive(:file?).with('path').and_return(true)
+      @paperclip_time_stamped.should_receive(:name_file_name).and_return('name.png')
       @paperclip_time_stamped.should_receive(:name_path).with(:small).and_return('path')
+      File.should_receive(:file?).with('path').and_return(true)
       @paperclip_time_stamped.name?(:small).should be_true
     end
 
-    it 'should be false when name.exists? is false' do
-      @paperclip_time_stamped.should_receive(:name).and_return(@name)
-      @name.should_receive(:exists?).and_return(false)
+    it 'should be false when name_file_name is not present' do
+      @paperclip_time_stamped.should_receive(:name_file_name).and_return(nil)
       @paperclip_time_stamped.name?(:small).should be_false
     end
 
-    it 'should be false when name.exists? is true but File.file? on given file with style is false' do
-      @name.should_receive(:exists?).and_return(true)
+    it 'should be false when name.exists? is false' do
+      @paperclip_time_stamped.should_receive(:name_file_name).and_return('name.png')
       @paperclip_time_stamped.should_receive(:name).and_return(@name)
-      File.should_receive(:file?).with('path').and_return(false)
+      @name.should_receive(:exists?).and_return(false)
+      @paperclip_time_stamped.name?.should be_false
+    end
+
+    it 'should be false when name.exists? is true but File.file? on given file with style is false' do
+      @paperclip_time_stamped.should_receive(:name_file_name).and_return('name.png')
       @paperclip_time_stamped.should_receive(:name_path).with(:small).and_return('path')
+      File.should_receive(:file?).with('path').and_return(false)
       @paperclip_time_stamped.name?(:small).should be_false
     end
   end

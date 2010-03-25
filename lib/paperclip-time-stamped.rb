@@ -23,7 +23,7 @@ ActiveRecord::Base.class_eval do
     end
 
     define_method("#{name}?") do |*style|
-      send(name).exists? && (style.empty? || File.file?(send("#{name}_path", style.first)))
+      send("#{name}_file_name").present? && (style.empty? ? send(name).exists? : File.file?(send("#{name}_path", style.first)))
     end
 
   end
